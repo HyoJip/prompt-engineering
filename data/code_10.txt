@@ -1,0 +1,88 @@
+class Book:
+    """A class representing a book in the library."""
+    
+    def __init__(self, title, author, isbn):
+        self.title = title
+        self.author = author
+        self.isbn = isbn
+        self.is_available = True
+    
+    def __str__(self):
+        status = "Available" if self.is_available else "Checked Out"
+        return f"{self.title} by {self.author} (ISBN: {self.isbn}) - {status}"
+
+class Library:
+    """A class representing a library system."""
+    
+    def __init__(self):
+        self.books = []
+    
+    def add_book(self, book):
+        """Add a new book to the library."""
+        self.books.append(book)
+        print(f"Book '{book.title}' added to the library.")
+    
+    def remove_book(self, isbn):
+        """Remove a book from the library by its ISBN."""
+        for book in self.books:
+            if book.isbn == isbn:
+                self.books.remove(book)
+                print(f"Book '{book.title}' removed from the library.")
+                return
+        print(f"No book found with ISBN {isbn}.")
+    
+    def search_books(self, title=None, author=None):
+        """Search for books by title or author."""
+        results = []
+        for book in self.books:
+            if (title and title.lower() in book.title.lower()) or (author and author.lower() in book.author.lower()):
+                results.append(book)
+        return results
+    
+    def checkout_book(self, isbn):
+        """Mark a book as checked out."""
+        for book in self.books:
+            if book.isbn == isbn:
+                if not book.is_available:
+                    print(f"Book '{book.title}' is already checked out.")
+                    return
+                book.is_available = False
+                print(f"Book '{book.title}' checked out successfully.")
+                return
+        print(f"No book found with ISBN {isbn}.")
+    
+    def return_book(self, isbn):
+        """Mark a book as returned."""
+        for book in self.books:
+            if book.isbn == isbn:
+                if book.is_available:
+                    print(f"Book '{book.title}' is already available in the library.")
+                    return
+                book.is_available = True
+                print(f"Book '{book.title}' returned successfully.")
+                return
+        print(f"No book found with ISBN {isbn}.")
+
+# Test the Library system
+if __name__ == "__main__":
+    library = Library()
+    
+    # Adding books
+    book1 = Book("1984", "George Orwell", "123456789")
+    book2 = Book("To Kill a Mockingbird", "Harper Lee", "987654321")
+    library.add_book(book1)
+    library.add_book(book2)
+    
+    # Searching books
+    print("\nSearch Results:")
+    results = library.search_books(title="1984")
+    for book in results:
+        print(book)
+    
+    # Checking out and returning books
+    library.checkout_book("123456789")
+    library.return_book("123456789")
+    library.return_book("987654321")  # Already available
+    
+    # Removing a book
+    library.remove_book("123456789")

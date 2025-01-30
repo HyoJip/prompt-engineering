@@ -1,0 +1,24 @@
+# 간단한 To-Do 리스트 관리 프로그램 
+
+ㅁ
+# 간단한 To-Do 리스트 관리 프로그램
+todo_list = []
+
+def add_task(task):
+    todo_list.append(task)
+    print(f"Task '{task}' added to the list.")
+
+def remove_task(task):
+    if task in todo_list:
+        todo_list.remove(task)
+        print(f"Task '{task}' removed from the list.")
+    else:
+        print(f"Task '{task}' not found in the list.")
+
+def show_tasks():
+    if todo_list:
+        print("To-Do List:")
+        for index, task in enumerate(todo_list, start=1):
+            print(f"{index}. {task}")
+    else:
+        print("Your to-do list is empty.")

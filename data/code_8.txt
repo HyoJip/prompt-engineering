@@ -1,0 +1,48 @@
+# 피보나치 수열을 파일에 저장하고 해당 파일에서 값을 읽어오는 코드
+
+def generate_fibonacci(n):
+    """Generate a list of the first n Fibonacci numbers."""
+    if n <= 0:
+        return []
+    fibonacci_sequence = [0, 1]
+    while len(fibonacci_sequence) < n:
+        next_value = fibonacci_sequence[-1] + fibonacci_sequence[-2]
+        fibonacci_sequence.append(next_value)
+    return fibonacci_sequence[:n]
+
+def save_to_file(filename, data):
+    """Save a list of numbers to a file, one number per line."""
+    try:
+        with open(filename, 'w') as file:
+            for number in data:
+                file.write(f"{number}\n")
+    except IOError as e:
+        print(f"Error writing to file: {e}")
+
+def read_from_file(filename):
+    """Read numbers from a file and return them as a list of integers."""
+    try:
+        with open(filename, 'r') as file:
+            return [int(line.strip()) for line in file]
+    except IOError as e:
+        print(f"Error reading from file: {e}")
+        return []
+    except ValueError as e:
+        print(f"Error parsing file content: {e}")
+        return []
+
+def main():
+    """Main function to demonstrate the program."""
+    filename = "fibonacci.txt"
+    n = 20  # Generate first 20 Fibonacci numbers
+    fibonacci_numbers = generate_fibonacci(n)
+    print(f"Generated Fibonacci sequence: {fibonacci_numbers}")
+    
+    save_to_file(filename, fibonacci_numbers)
+    print(f"Fibonacci sequence saved to {filename}.")
+    
+    read_numbers = read_from_file(filename)
+    print(f"Numbers read from file: {read_numbers}")
+
+if __name__ == "__main__":
+    main()

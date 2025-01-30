@@ -1,0 +1,7 @@
+# 중복 제거 
+def remove_duplicate(items): 
+    result = [] 
+    for item in items: 
+        if item not in result: 
+            result.append(item) 
+        return item 
