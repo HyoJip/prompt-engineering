@@ -5,7 +5,7 @@
 description: "Is this text depression or suicidewatch?"
 
 prompts:
-  - file://simple_prompt.txt
+  - file://prompts/simple_prompt.txt
 
 providers:
 #  - id: anthropic:messages:claude-3-haiku-20240307
@@ -18,7 +18,7 @@ tests:
   - file://data/reddit_depression_suicidewatch_test.csv
 defaultTest:
   options:
-    transform: file://transform.py
+    transform: file://codes/transform.py
   assert:
     - type: python
       value: "output['predication'] == context['vars']['label'].lower()"
